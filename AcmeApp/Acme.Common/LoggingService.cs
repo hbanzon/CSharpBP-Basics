@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Acme.Common
 {
+  /// <summary>
+  /// Provides logging.
+  /// </summary>
+  public static class LoggingService
+  {
     /// <summary>
-    /// Provides logging.
+    /// Logs actions.
     /// </summary>
-    public class LoggingService
+    /// <param name="action">Action to log.</param>
+    public static string LogAction(string action)
     {
-        /// <summary>
-        /// Logs actions.
-        /// </summary>
-        /// <param name="action">Action to log.</param>
-        public string LogAction(string action)
-        {
-            var logText = "Action: " + action;
-            Console.WriteLine(logText);
-
-            return logText;
-        }
+      var logText = "Action: " + action;
+      Console.WriteLine(logText);
+      return logText;
     }
+  }
 }
