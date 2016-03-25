@@ -29,5 +29,27 @@ namespace Acme.Biz
                                                   this.Email);
       return confirmation;
     }
+
+    /// <summary>
+    /// Place an Order for a product with the specified quantity.
+    /// </summary>
+    /// <param name="product">The product</param>
+    /// <param name="quantity">Quanity of Products to order</param>
+    /// <returns></returns>
+    public bool PlaceOrder(Product product, int quantity)
+    {
+      return PlaceOrder(product, quantity, null);
+    }
+
+    public bool PlaceOrder(Product product, int quantity, DateTimeOffset? deliverBy)
+    {
+      if (product == null)
+        throw new ArgumentNullException(nameof(product));
+      if (quantity <= 0)
+        throw new ArgumentOutOfRangeException(nameof(quantity));
+
+      var validDeliveryByDate = deliverBy != null ? deliverBy.Value.Ticks >= DateTime.UtcNow.AddDays(2).Ticks : true;
+      return !product.ProductName.StartsWith("Test") && validDeliveryByDate;
+    }
   }
 }

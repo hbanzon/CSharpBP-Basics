@@ -55,5 +55,55 @@ namespace Acme.Biz.Tests
       // Assert
       Assert.AreEqual(expected, actual);
     }
+
+    [TestMethod()]
+    public void PlaceOrderTest_Success()
+    {
+      var vendor = new Vendor();
+      var product = new Product(1, "Baby Q", "blah");
+      var success = vendor.PlaceOrder(product, 1) && vendor.PlaceOrder(product, 1, new DateTimeOffset(DateTime.UtcNow.AddDays(3)));
+      Assert.IsTrue(success);
+    }
+
+    [TestMethod()]
+    public void PlaceOrderTest_UnsuccessfulProduct()
+    {
+      var vendor = new Vendor();
+      var product = new Product(1, "Test", "blah");
+      var success = vendor.PlaceOrder(product, 1);
+      Assert.IsFalse(success);
+    }
+
+    [TestMethod()]
+    public void PlaceOrderTest_UnsuccessfulDeliveryDate()
+    {
+      var vendor = new Vendor();
+      var product = new Product(1, "Test", "blah");
+      var success = vendor.PlaceOrder(product, 1, new DateTimeOffset(DateTime.UtcNow));
+      Assert.IsFalse(success);
+    }
+
+    [TestMethod()]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void PlaceOrderTest_InvalidArguments()
+    {
+      var vendor = new Vendor();
+      vendor.PlaceOrder(null, 1);
+    }
+
+    [TestMethod()]
+    public void CalculateSuggestedPrice()
+    {
+      // Arrange
+      var product = new Product(1, "Baby Q", "blah");
+      product.Cost = 50m;
+      var expectedSuggestedPrice = 55m;
+
+      // Act
+      var actualSuggestedPrice = product.CalculateSuggestedPrice(10m);
+
+      // Assert
+      Assert.AreEqual(expectedSuggestedPrice, actualSuggestedPrice);
+    }
   }
 }

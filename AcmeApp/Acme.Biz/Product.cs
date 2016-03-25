@@ -30,6 +30,8 @@ namespace Acme.Biz
       set { productName = value; }
     }
 
+    public decimal Cost { get; set; }
+
     private string description;
 
     public string Description
@@ -74,5 +76,16 @@ namespace Acme.Biz
           + Description;
     }
 
+    /// <summary>
+    /// Calculate the Suggested Price.  Example of an Expression-Bodied Method
+    /// </summary>
+    /// <param name="markupPercent"></param>
+    /// <returns></returns>
+    public decimal CalculateSuggestedPrice(decimal markupPercent) 
+      => this.Cost + (this.Cost * markupPercent/100);
+
+    public override string ToString() 
+      => this.ProductName + "(" + this.ProductId + ")";
+   
   }
 }
