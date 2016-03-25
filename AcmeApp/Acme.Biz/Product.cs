@@ -84,8 +84,7 @@ namespace Acme.Biz
     public decimal CalculateSuggestedPrice(decimal markupPercent) 
       => this.Cost + (this.Cost * markupPercent/100);
 
-    public override string ToString() 
-      => this.ProductName + "(" + this.ProductId + ")";
+    public override string ToString() => $"{ProductName}-{ProductId}";
    
   }
 }

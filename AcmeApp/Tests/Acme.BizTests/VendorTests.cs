@@ -105,5 +105,19 @@ namespace Acme.Biz.Tests
       // Assert
       Assert.AreEqual(expectedSuggestedPrice, actualSuggestedPrice);
     }
+
+    [TestMethod()]
+    public void ToStringTest()
+    {
+      // Arrange
+      var product = new Product(1, "Baby Q", "blah");
+      var expectedString = "Baby Q-1";
+
+      // Act
+      var actualString = product.ToString();
+
+      // Assert
+      Assert.AreEqual(expectedString, actualString);
+    }
   }
 }
